@@ -1,0 +1,8 @@
+require 'rails_helper'
+
+RSpec.describe Movie, type: :model do
+  it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:uid) }
+  it { should validate_presence_of(:popularity) }
+  it { should validate_presence_of(:adult) }
+end
