@@ -11,15 +11,11 @@ class FavoritesController < ApplicationController
   end
 
   def create
-  	@favorite = current_user.favorites.create!(favorite_params)
+  	@favorite = current_user.favorites.create!(movie_id: params[:id])
     json_response(@favorite, :created)
   end
 
   private
-
-  def favorite_params
-    params.permit(:movie_id, :user_id)
-  end
 
   def set_todo
     @favorite = Favorite.find(params[:id])
