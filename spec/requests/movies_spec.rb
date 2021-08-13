@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe "Movies", type: :request do
+  let!(:user) { create(:user) }
   let!(:movies) { create_list(:movie, 10) }
   let(:movie_id) { movies.first.id }
+  let(:headers) { valid_headers }
 
   describe 'GET /movies' do
-    before { get '/movies' }
+    before { get '/movies', params: {}, headers: headers  }
 
     it 'returns movies' do
-      # Note `json` is a custom helper to parse JSON responses
       expect(json).not_to be_empty
       expect(json.size).to eq(10)
     end
