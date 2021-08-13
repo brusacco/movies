@@ -15,6 +15,12 @@ class FavoritesController < ApplicationController
     json_response(@favorite, :created)
   end
 
+  def list
+  	@user = User.find(params[:id])
+  	@favorite = @user.favorites
+    json_response(@favorite)
+  end
+
   private
 
   def set_todo

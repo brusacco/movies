@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   end
 
   resources :favorites
-  match '/favorites/:id' => 'favorites#create', :via => [:post]
+  post '/favorites/:id', to: 'favorites#create'
+  get '/user/:id/favorites', to: 'favorites#list'
 
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
