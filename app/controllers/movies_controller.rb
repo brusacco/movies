@@ -2,10 +2,10 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: [:show]
 
   def index
-    @movies = Movie.order(popularity: :desc).limit(1000)
-    if params[:search]
-      ids = search_basics
-      @movies = @movies.find(ids)
+    if params[:search].present?
+      @movies = search_basics.paginate(page: params[:page], per_page: 50)
+    else
+      @movies = Movie.ordered_by_popular.paginate(page: params[:page], per_page: 50)
     end
     json_response(@movies)
   end
@@ -18,10 +18,7 @@ class MoviesController < ApplicationController
   private
 
   def search_basics
-    @movies.where(
-      "title like ?",
-      "%#{params[:search]}%"
-    ).pluck(:id)
+    Movie.where("title like ?", "%#{params[:search]}%").ordered_by_popular
   end
 
   def set_movie

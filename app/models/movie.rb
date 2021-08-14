@@ -3,4 +3,6 @@ class Movie < ApplicationRecord
   validates_uniqueness_of :uid
 
   has_many :favorites, dependent: :destroy
+
+  scope :ordered_by_popular, -> { order(popularity: :desc) }
 end
