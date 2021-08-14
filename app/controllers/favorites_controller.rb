@@ -1,5 +1,5 @@
 class FavoritesController < ApplicationController
-  before_action :set_todo, only: [:show, :update, :destroy]
+  before_action :set_favorite, only: [:show, :update, :destroy]
 
   def index
   	@favorite = current_user.favorites
@@ -23,7 +23,7 @@ class FavoritesController < ApplicationController
 
   private
 
-  def set_todo
+  def set_favorite
     @favorite = Favorite.find(params[:id])
   end
 end
