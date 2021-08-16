@@ -25,3 +25,5 @@ Things you may want to cover:
 
 * Deployment instructions: Jut clone the repo and run the DB setup and rake task provided
 
+There is atached in the root directory a Postman JSON export, to document the API endpoints implemented.
+
