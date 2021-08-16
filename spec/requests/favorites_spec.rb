@@ -10,7 +10,7 @@ RSpec.describe "Favorites", type: :request do
   let(:headers) { valid_headers }
 
   describe "GET /favorites" do
-    before { get "/favorites", params: {}, headers: headers   }
+    before { get "/favorites", params: {}, headers: headers }
 
     context 'when favorite exists' do
       it 'returns status code 200' do
@@ -24,7 +24,7 @@ RSpec.describe "Favorites", type: :request do
   end
 
   describe "GET /users/:id/favorites" do
-    before { get "/user/#{user.id}/favorites", params: {}, headers: headers   }
+    before { get "/user/#{user.id}/favorites", params: {}, headers: headers }
 
     context 'when favorite exists' do
       it 'returns status code 200' do
@@ -33,6 +33,20 @@ RSpec.describe "Favorites", type: :request do
 
       it 'returns all favorite items' do
         expect(json.size).to eq(2)
+      end
+    end
+  end
+
+  describe 'POST /favorites/:id' do
+    context 'when the request is valid' do
+      before { post "/favorites/#{movies[2].id}", params: {}, headers: headers }
+
+      it 'creates a favorite' do
+        expect(json['movie']['title']).to eq(movies[2].title)
+      end
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
       end
     end
   end
