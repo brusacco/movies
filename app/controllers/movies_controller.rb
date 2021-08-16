@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
 
   def show
     @detail = MoviedbApiServices::GetMovieServices.new(@movie.uid).call
-    json_response(@detail)
+    json_response(@detail.payload)
   end
 
   private
