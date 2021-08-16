@@ -49,5 +49,18 @@ RSpec.describe "Favorites", type: :request do
         expect(response).to have_http_status(201)
       end
     end
+
+    context 'when the movie is invalid' do
+      before { post '/favorites/0', params: {}, headers: headers }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body)
+          .to match(/Validation failed: Movie can't be blank, Movie must exist/)
+      end
+    end
   end
 end
